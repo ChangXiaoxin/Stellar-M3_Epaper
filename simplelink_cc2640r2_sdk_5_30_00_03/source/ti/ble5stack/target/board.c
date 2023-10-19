@@ -72,6 +72,7 @@
 #elif defined(CC2640R2_STELLAR_M3)
     #include "../../boards/CC2640R2_STELLAR_M3/Board.h"
     #include "../../boards/CC2640R2_STELLAR_M3/CC2640R2_STELLAR_M3.c"
+    #include "../../boards/CC2640R2_STELLAR_M3/CC2640R2_STELLAR_M3_fxns.c"
 #else // unknown board
     #error "***ERROR*** Invalid Board Specified! Please see board.h for options."
 #endif

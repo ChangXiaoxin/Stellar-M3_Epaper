@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2019, Texas Instruments Incorporated
+ * Copyright (c) 2016-2017, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,9 +31,34 @@
  */
 
 /*
- *  ====================== CC2640R2_STELLAR_M3.c ===================================
- *  This file is responsible for setting up the board specific items for the
- *  CC2640R2_STELLAR_M3 board.
+ *  ====================== CC2640R2_STELLAR_M3.c =================================
+ *  This board file is made for the 7x7 mm QFN package, to convert this board
+ *  file to use for other smaller device packages please refer to the table
+ *  below which lists the max IOID values supported by each package. All other
+ *  unused pins should be set to IOID_UNUSED.
+ *
+ *  Furthermore the board file is also used
+ *  to define a symbol that configures the RF front end and bias.
+ *  See the comments below for more information.
+ *  For an in depth tutorial on how to create a custom board file, please refer
+ *  to the section "Running the SDK on Custom Boards" with in the Software
+ *  Developer's Guide.
+ *
+ *  Refer to the datasheet for all the package options and IO descriptions:
+ *  http://www.ti.com/lit/ds/symlink/cc2640r2f.pdf
+ *
+ *  +-----------------------+------------------+-----------------------+
+ *  |     Package Option    |  Total GPIO Pins |   MAX IOID            |
+ *  +=======================+==================+=======================+
+ *  |     7x7 mm QFN        |     31           |   IOID_30             |
+ *  +-----------------------+------------------+-----------------------+
+ *  |     5x5 mm QFN        |     15           |   IOID_14             |
+ *  +-----------------------+------------------+-----------------------+
+ *  |     4x4 mm QFN        |     10           |   IOID_9              |
+ *  +-----------------------+------------------+-----------------------+
+ *  |     2.7 x 2.7 mm WCSP |     14           |   IOID_13             |
+ *  +-----------------------+------------------+-----------------------+
+ *  ============================================================================
  */
 
 #include <stdbool.h>
@@ -383,32 +408,6 @@ const AESCTRDRBG_Config AESCTRDRBG_config[CC2640R2_STELLAR_M3_AESCTRDRBGCOUNT] =
 const uint_least8_t AESCTRDRBG_count = CC2640R2_STELLAR_M3_AESCTRDRBGCOUNT;
 
 /*
- *  =============================== TRNG ===============================
- */
-#include <ti/drivers/TRNG.h>
-#include <ti/drivers/trng/TRNGCC26XX.h>
-
-TRNGCC26XX_Object trngCC26XXObjects[CC2640R2_STELLAR_M3_TRNGCOUNT];
-
-const TRNGCC26XX_HWAttrs trngCC26X2HWAttrs[CC2640R2_STELLAR_M3_TRNGCOUNT] = {
-    {
-        .intPriority       = ~0,
-        .swiPriority       = 0,
-        .samplesPerCycle   = 240000,
-    }
-};
-
-const TRNG_Config TRNG_config[CC2640R2_STELLAR_M3_TRNGCOUNT] = {
-    {
-         .object  = &trngCC26XXObjects[CC2640R2_STELLAR_M3_TRNG0],
-         .hwAttrs = &trngCC26X2HWAttrs[CC2640R2_STELLAR_M3_TRNG0]
-    },
-};
-
-const uint_least8_t TRNG_count = CC2640R2_STELLAR_M3_TRNGCOUNT;
-
-
-/*
  *  =============================== Display ===============================
  */
 #include <ti/display/Display.h>
@@ -514,7 +513,6 @@ GPIO_PinConfig gpioPinConfigs[] = {
 
     GPIOCC26XX_DIO_15 | GPIO_DO_NOT_CONFIG,  /* CC2640R2_STELLAR_M3_SPI_MASTER_READY */
     GPIOCC26XX_DIO_21 | GPIO_DO_NOT_CONFIG,  /* CC2640R2_STELLAR_M3_SPI_SLAVE_READY */
-
     /* Output pins */
     GPIOCC26XX_DIO_07 | GPIO_DO_NOT_CONFIG,  /* Green LED */
     GPIOCC26XX_DIO_06 | GPIO_DO_NOT_CONFIG,  /* Red LED */
@@ -530,7 +528,6 @@ GPIO_PinConfig gpioPinConfigs[] = {
     GPIOCC26XX_DIO_24 | GPIO_DO_NOT_CONFIG, /* SPI chip select */
     GPIOCC26XX_DIO_22 | GPIO_DO_NOT_CONFIG, /* LCD power control */
     GPIOCC26XX_DIO_23 | GPIO_DO_NOT_CONFIG, /*LCD enable */
-
 };
 
 /*
@@ -793,7 +790,11 @@ const PowerCC26XX_Config PowerCC26XX_config = {
     .policyFxn          = &PowerCC26XX_standbyPolicy,
     .calibrateFxn       = &PowerCC26XX_calibrate,
     .enablePolicy       = true,
+#ifdef USE_RCOSC
     .calibrateRCOSC_LF  = true,
+#else
+    .calibrateRCOSC_LF  = false,
+#endif
     .calibrateRCOSC_HF  = true,
 };
 
@@ -1019,8 +1020,31 @@ const Watchdog_Config Watchdog_config[CC2640R2_STELLAR_M3_WATCHDOGCOUNT] = {
 const uint_least8_t Watchdog_count = CC2640R2_STELLAR_M3_WATCHDOGCOUNT;
 
 /*
- *  Board-specific initialization function to disable external flash.
- *  This function is defined in the file CC2640R2_STELLAR_M3_fxns.c
+ *  ========================= TRNG begin ====================================
+ */
+#include <TRNGCC26XX.h>
+
+/* TRNG objects */
+TRNGCC26XX_Object trngCC26XXObjects[CC2640R2_STELLAR_M3_TRNGCOUNT];
+
+/* TRNG configuration structure, describing which pins are to be used */
+const TRNGCC26XX_HWAttrs TRNGCC26XXHWAttrs[CC2640R2_STELLAR_M3_TRNGCOUNT] = {
+    {
+        .powerMngrId    = PowerCC26XX_PERIPH_TRNG,
+    }
+};
+
+/* TRNG configuration structure */
+const TRNGCC26XX_Config TRNGCC26XX_config[] = {
+    {
+         .object  = &trngCC26XXObjects[0],
+         .hwAttrs = &TRNGCC26XXHWAttrs[0]
+    },
+    {NULL, NULL}
+};
+
+/*
+ *  ========================= TRNG end ====================================
  */
 extern void Board_initHook(void);
 

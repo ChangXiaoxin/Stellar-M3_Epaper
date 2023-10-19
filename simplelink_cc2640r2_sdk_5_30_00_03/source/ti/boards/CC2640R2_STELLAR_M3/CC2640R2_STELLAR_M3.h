@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2019, Texas Instruments Incorporated
+ * Copyright (c) 2016-2017, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,18 +38,31 @@
  *  CC2640R2_STELLAR_M3 board.
  *
  *  This board file is made for the 7x7 mm QFN package, to convert this board
- *  file to use for other smaller device packages(5x5 mm and 4x4 mm QFN), the
- *  board will need to be modified since all the IO pins are not available for
- *  smaller packages. Note that the 2.7 x 2.7 mm WCSP package should use a
- *  separate board file also included within the SDK.
+ *  file to use for other smaller device packages please refer to the table
+ *  below which lists the max IOID values supported by each package. All other
+ *  unused pins should be set to IOID_UNUSED.
+ *
+ *  Furthermore the board file is also used
+ *  to define a symbol that configures the RF front end and bias.
+ *  See the comments below for more information.
+ *  For an in depth tutorial on how to create a custom board file, please refer
+ *  to the section "Running the SDK on Custom Boards" with in the Software
+ *  Developer's Guide.
  *
  *  Refer to the datasheet for all the package options and IO descriptions:
  *  http://www.ti.com/lit/ds/symlink/cc2640r2f.pdf
  *
- *  For example, to change to the 4x4 package, remove all defines for all IOs
- *  not available (IOID_10 and higher) since the 4x4 package
- *  has only 10 DIO pins as listed in the datasheet. Remove the modules/pins
- *  not used including ADC, Display, SPI1, LED, and PIN due to limited pins.
+ *  +-----------------------+------------------+-----------------------+
+ *  |     Package Option    |  Total GPIO Pins |   MAX IOID            |
+ *  +=======================+==================+=======================+
+ *  |     7x7 mm QFN        |     31           |   IOID_30             |
+ *  +-----------------------+------------------+-----------------------+
+ *  |     5x5 mm QFN        |     15           |   IOID_14             |
+ *  +-----------------------+------------------+-----------------------+
+ *  |     4x4 mm QFN        |     10           |   IOID_9              |
+ *  +-----------------------+------------------+-----------------------+
+ *  |     2.7 x 2.7 mm WCSP |     14           |   IOID_13             |
+ *  +-----------------------+------------------+-----------------------+
  *  ============================================================================
  */
 #ifndef __CC2640R2_STELLAR_M3_BOARD_H__
@@ -67,7 +80,31 @@ extern "C" {
 extern const PIN_Config BoardGpioInitTable[];
 
 /* Defines */
-#define CC2640R2_STELLAR_M3
+#ifndef CC2640R2_STELLAR_M3
+  #define CC2640R2_STELLAR_M3
+#endif /* CC2640R2_STELLAR_M3 */
+
+/*
+ *  ============================================================================
+ *  RF Front End and Bias configuration symbols for TI reference designs and
+ *  kits. This symbol sets the RF Front End configuration in ble_user_config.h
+ *  and selects the appropriate PA table in ble_user_config.c.
+ *  Other configurations can be used by editing these files.
+ *
+ *  Define only one symbol:
+ *  CC2650EM_7ID    - Differential RF and internal biasing
+                      (default for CC2640R2 LaunchPad)
+ *  CC2650EM_5XD    � Differential RF and external biasing
+ *  CC2650EM_4XS    � Single-ended RF on RF-P and external biasing
+ *  CC2640R2DK_CXS  - WCSP: Single-ended RF on RF-N and external biasing
+ *                    (Note that the WCSP is only tested and characterized for
+ *                     single ended configuration, and it has a WCSP-specific
+ *                     PA table)
+ *
+ *  Note: CC2650EM_xxx reference designs apply to all CC26xx devices.
+ *  ==========================================================================
+ */
+#define CC2650EM_7ID
 
 /* Mapping of pins to board signals using general board aliases
  *      <board signal alias>                  <pin mapping>
@@ -112,6 +149,14 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC2640R2_STELLAR_M3_I2S_MCLK              PIN_UNASSIGNED
 #define CC2640R2_STELLAR_M3_I2S_WCLK              IOID_29
 
+/* LCD (430BOOST - Sharp96 Rev 1.1) */
+#define CC2640R2_STELLAR_M3_LCD_CS                IOID_24 /* SPI chip select */
+#define CC2640R2_STELLAR_M3_LCD_EXTCOMIN          IOID_12 /* External COM inversion */
+#define CC2640R2_STELLAR_M3_LCD_ENABLE            IOID_22 /* LCD enable */
+#define CC2640R2_STELLAR_M3_LCD_POWER             IOID_23 /* LCD power control */
+#define CC2640R2_STELLAR_M3_LCD_CS_ON             1
+#define CC2640R2_STELLAR_M3_LCD_CS_OFF            0
+
 /* LEDs */
 #define CC2640R2_STELLAR_M3_PIN_LED_ON            1
 #define CC2640R2_STELLAR_M3_PIN_LED_OFF           0
@@ -137,7 +182,7 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC2640R2_STELLAR_M3_SPI0_MISO             IOID_8          /* RF1.20 */
 #define CC2640R2_STELLAR_M3_SPI0_MOSI             IOID_9          /* RF1.18 */
 #define CC2640R2_STELLAR_M3_SPI0_CLK              IOID_10         /* RF1.16 */
-#define CC2640R2_STELLAR_M3_SPI0_CSN              IOID_11
+#define CC2640R2_STELLAR_M3_SPI0_CSN              PIN_UNASSIGNED
 #define CC2640R2_STELLAR_M3_SPI1_MISO             PIN_UNASSIGNED
 #define CC2640R2_STELLAR_M3_SPI1_MOSI             PIN_UNASSIGNED
 #define CC2640R2_STELLAR_M3_SPI1_CLK              PIN_UNASSIGNED
@@ -291,16 +336,6 @@ typedef enum CC2640R2_STELLAR_M3_AESCTRDRBGName {
 } CC2640R2_STELLAR_M3_AESCTRDRBGName;
 
 /*!
- *  @def    CC2640R2_STELLAR_M3_TRNGName
- *  @brief  Enum of TRNG names
- */
-typedef enum CC2640R2_STELLAR_M3_TRNGName {
-    CC2640R2_STELLAR_M3_TRNG0 = 0,
-
-    CC2640R2_STELLAR_M3_TRNGCOUNT
-} CC2640R2_STELLAR_M3_TRNGName;
-
-/*!
  *  @def    CC2640R2_STELLAR_M3_GPIOName
  *  @brief  Enum of GPIO names
  */
@@ -452,6 +487,15 @@ typedef enum CC2640R2_STELLAR_M3_WatchdogName {
 
     CC2640R2_STELLAR_M3_WATCHDOGCOUNT
 } CC2640R2_STELLAR_M3_WatchdogName;
+
+/*!
+ *  @def    CC2650_LAUNCHXL_TRNGName
+ *  @brief  Enum of TRNG names on the board
+ */
+typedef enum CC2640R2_STELLAR_M3_TRNGName {
+    CC2640R2_STELLAR_M3_TRNG0 = 0,
+    CC2640R2_STELLAR_M3_TRNGCOUNT
+} CC2640R2_STELLAR_M3_TRNGName;
 
 #ifdef __cplusplus
 }
