@@ -50,3 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+/src/ble5_simple_peripheral_cc2640r2lp_app/FlashROM_StackLibrary/
+/src/ble5_simple_peripheral_cc2640r2lp_app/FlashROM_StackLibrary_RCOSC/
+/src/ble5_simple_peripheral_cc2640r2lp_stack_library/FlashROM_Library/
