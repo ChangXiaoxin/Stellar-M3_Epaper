@@ -24,5 +24,7 @@ E-paper: `DEPG0213RHS75AF1CP` `(SSD1675B)`
 |DIO_0 ?|BLUE LED|low active
 
 ## Prepare for the CCS project
+- Install the simplelink_cc2640r2_sdk_5_30_00_03 from TI.
+- Install the CCS Version: 9.1.0.00010 from TI.
 - Copy all the files under `/simplelink_cc2640r2_sdk_5_30_00_03` to your `<SDK_INSTALL_DIR>`.
 - Import all the CCS projects from `/src` to your CCS workspace.
