@@ -4,7 +4,7 @@ E-ink software CCS project for Stellar-M3
 ## Hardware
 Stellar-M3: `HS_EL5102-1M_55_02` A Electronic Shelf Lable (ESL) producted by Zhejiang Hanshow Technology Co.,LTD. 
 
-CPU: `CC2640R2F` 
+MCU: `CC2640R2F` 
 
 E-paper: `DEPG0213RHS75AF1CP` `(SSD1675B)`
 
