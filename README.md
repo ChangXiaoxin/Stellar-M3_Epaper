@@ -8,6 +8,9 @@ MCU: `CC2640R2F`
 
 E-paper: `DEPG0213RHS75AF1CP` `(SSD1675B)`
 
+![CC2640R2_STELLAR_M3_A.jpg](/simplelink_cc2640r2_sdk_5_30_00_03/source/ti/boards/CC2640R2_STELLAR_M3/docs/images/CC2640R2_STELLAR_M3_A.jpg)
+![CC2640R2_STELLAR_M3_B.jpg](/simplelink_cc2640r2_sdk_5_30_00_03/source/ti/boards/CC2640R2_STELLAR_M3/docs/images/CC2640R2_STELLAR_M3_B.jpg)
+
 ## Connection
 |CC2640R2F|Stellar-M3|NotesC
 |--|--|--|
