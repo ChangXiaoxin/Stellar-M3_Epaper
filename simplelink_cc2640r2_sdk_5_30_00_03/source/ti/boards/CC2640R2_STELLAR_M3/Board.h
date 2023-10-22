@@ -116,12 +116,12 @@ extern "C" {
 #define Board_I2C0              CC2640R2_STELLAR_M3_I2C0
 #define Board_I2C_TMP           Board_I2C0
 
-#define Board_I2S0              CC2640R2_STELLAR_M3_I2S0
-#define Board_I2S_ADO           CC2640R2_STELLAR_M3_I2S_ADO
-#define Board_I2S_ADI           CC2640R2_STELLAR_M3_I2S_ADI
-#define Board_I2S_BCLK          CC2640R2_STELLAR_M3_I2S_BCLK
-#define Board_I2S_MCLK          CC2640R2_STELLAR_M3_I2S_MCLK
-#define Board_I2S_WCLK          CC2640R2_STELLAR_M3_I2S_WCLK
+// #define Board_I2S0              CC2640R2_STELLAR_M3_I2S0
+// #define Board_I2S_ADO           CC2640R2_STELLAR_M3_I2S_ADO
+// #define Board_I2S_ADI           CC2640R2_STELLAR_M3_I2S_ADI
+// #define Board_I2S_BCLK          CC2640R2_STELLAR_M3_I2S_BCLK
+// #define Board_I2S_MCLK          CC2640R2_STELLAR_M3_I2S_MCLK
+// #define Board_I2S_WCLK          CC2640R2_STELLAR_M3_I2S_WCLK
 
 #define Board_NVSINTERNAL       CC2640R2_STELLAR_M3_NVSCC26XX0
 #define Board_NVSEXTERNAL       CC2640R2_STELLAR_M3_NVSSPI25X0
