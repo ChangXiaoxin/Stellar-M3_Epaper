@@ -131,7 +131,7 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC2640R2_STELLAR_M3_DIO22                 IOID_22
 
 /* Discrete Inputs */
-#define CC2640R2_STELLAR_M3_PIN_BTN1              IOID_13
+#define CC2640R2_STELLAR_M3_PIN_BTN1              IOID_15
 #define CC2640R2_STELLAR_M3_PIN_BTN2              IOID_14
 
 /* GPIO */
@@ -142,12 +142,23 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC2640R2_STELLAR_M3_I2C0_SCL0             IOID_4
 #define CC2640R2_STELLAR_M3_I2C0_SDA0             IOID_5
 
-/* I2S */
-#define CC2640R2_STELLAR_M3_I2S_ADO               IOID_0
-#define CC2640R2_STELLAR_M3_I2S_ADI               IOID_1
-#define CC2640R2_STELLAR_M3_I2S_BCLK              IOID_30
-#define CC2640R2_STELLAR_M3_I2S_MCLK              PIN_UNASSIGNED
-#define CC2640R2_STELLAR_M3_I2S_WCLK              IOID_29
+// /* I2S */
+// #define CC2640R2_STELLAR_M3_I2S_ADO               IOID_0
+// #define CC2640R2_STELLAR_M3_I2S_ADI               IOID_1
+// #define CC2640R2_STELLAR_M3_I2S_BCLK              IOID_30
+// #define CC2640R2_STELLAR_M3_I2S_MCLK              PIN_UNASSIGNED
+// #define CC2640R2_STELLAR_M3_I2S_WCLK              IOID_29
+
+/* E-Ink (DEPG0213RHS75AF1CP|SSD1675B) */
+#define CC2640R2_STELLAR_M3_E_INK_DC               IOID_11 /* Data/Command control */
+#define CC2640R2_STELLAR_M3_E_INK_CS               IOID_12 /* SPI chip select */
+#define CC2640R2_STELLAR_M3_E_INK_CK               IOID_18 /* SPI clock */
+#define CC2640R2_STELLAR_M3_E_INK_SDA              IOID_19 /* SPI data */
+#define CC2640R2_STELLAR_M3_E_INK_RST              IOID_10 /* Reset signal */
+#define CC2640R2_STELLAR_M3_E_INK_BUSY             IOID_9  /* Busy state output */
+#define CC2640R2_STELLAR_M3_E_INK_POWER            IOID_20 /* E-Ink power control */
+#define CC2640R2_STELLAR_M3_E_INK_CS_ON            1
+#define CC2640R2_STELLAR_M3_E_INK_CS_OFF           0
 
 /* LCD (430BOOST - Sharp96 Rev 1.1) */
 #define CC2640R2_STELLAR_M3_LCD_CS                IOID_24 /* SPI chip select */
@@ -158,15 +169,16 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC2640R2_STELLAR_M3_LCD_CS_OFF            0
 
 /* LEDs */
-#define CC2640R2_STELLAR_M3_PIN_LED_ON            1
-#define CC2640R2_STELLAR_M3_PIN_LED_OFF           0
+#define CC2640R2_STELLAR_M3_PIN_LED_ON            0
+#define CC2640R2_STELLAR_M3_PIN_LED_OFF           1
 #define CC2640R2_STELLAR_M3_PIN_RLED              IOID_6
 #define CC2640R2_STELLAR_M3_PIN_GLED              IOID_7
+#define CC2640R2_STELLAR_M3_PIN_BLUE              IOID_0
 
 /* PWM Outputs */
 #define CC2640R2_STELLAR_M3_PWMPIN0               CC2640R2_STELLAR_M3_PIN_RLED
 #define CC2640R2_STELLAR_M3_PWMPIN1               CC2640R2_STELLAR_M3_PIN_GLED
-#define CC2640R2_STELLAR_M3_PWMPIN2               PIN_UNASSIGNED
+#define CC2640R2_STELLAR_M3_PWMPIN2               CC2640R2_STELLAR_M3_PIN_BLUE
 #define CC2640R2_STELLAR_M3_PWMPIN3               PIN_UNASSIGNED
 #define CC2640R2_STELLAR_M3_PWMPIN4               PIN_UNASSIGNED
 #define CC2640R2_STELLAR_M3_PWMPIN5               PIN_UNASSIGNED
@@ -174,14 +186,14 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC2640R2_STELLAR_M3_PWMPIN7               PIN_UNASSIGNED
 
 /* SPI */
-#define CC2640R2_STELLAR_M3_SPI_FLASH_CS          IOID_20
+#define CC2640R2_STELLAR_M3_SPI_FLASH_CS          IOID_17
 #define CC2640R2_STELLAR_M3_FLASH_CS_ON           0
 #define CC2640R2_STELLAR_M3_FLASH_CS_OFF          1
 
 /* SPI Board */
-#define CC2640R2_STELLAR_M3_SPI0_MISO             IOID_8          /* RF1.20 */
-#define CC2640R2_STELLAR_M3_SPI0_MOSI             IOID_9          /* RF1.18 */
-#define CC2640R2_STELLAR_M3_SPI0_CLK              IOID_10         /* RF1.16 */
+#define CC2640R2_STELLAR_M3_SPI0_MISO             IOID_8                           /* Unused */
+#define CC2640R2_STELLAR_M3_SPI0_MOSI             CC2640R2_STELLAR_M3_E_INK_SDA    /* E-Ink SPI SDA */
+#define CC2640R2_STELLAR_M3_SPI0_CLK              CC2640R2_STELLAR_M3_E_INK_CK     /* E-Ink SPI CLK */
 #define CC2640R2_STELLAR_M3_SPI0_CSN              PIN_UNASSIGNED
 #define CC2640R2_STELLAR_M3_SPI1_MISO             PIN_UNASSIGNED
 #define CC2640R2_STELLAR_M3_SPI1_MOSI             PIN_UNASSIGNED
@@ -191,8 +203,8 @@ extern const PIN_Config BoardGpioInitTable[];
 /* UART Board */
 #define CC2640R2_STELLAR_M3_UART_RX               IOID_2          /* RXD */
 #define CC2640R2_STELLAR_M3_UART_TX               IOID_3          /* TXD */
-#define CC2640R2_STELLAR_M3_UART_CTS              IOID_19         /* CTS */
-#define CC2640R2_STELLAR_M3_UART_RTS              IOID_18         /* RTS */
+// #define CC2640R2_STELLAR_M3_UART_CTS              IOID_19         /* CTS */
+// #define CC2640R2_STELLAR_M3_UART_RTS              IOID_18         /* RTS */
 
 /*!
  *  @brief  Initialize the general board specific settings
@@ -395,15 +407,15 @@ typedef enum CC2640R2_STELLAR_M3_I2CName {
     CC2640R2_STELLAR_M3_I2CCOUNT
 } CC2640R2_STELLAR_M3_I2CName;
 
-/*!
- *  @def    CC2640R2_STELLAR_M3_I2SName
- *  @brief  Enum of I2S names
- */
-typedef enum CC2640R2_STELLAR_M3_I2SName {
-    CC2640R2_STELLAR_M3_I2S0 = 0,
+// /*!
+//  *  @def    CC2640R2_STELLAR_M3_I2SName
+//  *  @brief  Enum of I2S names
+//  */
+// typedef enum CC2640R2_STELLAR_M3_I2SName {
+//     CC2640R2_STELLAR_M3_I2S0 = 0,
 
-    CC2640R2_STELLAR_M3_I2SCOUNT
-} CC2640R2_STELLAR_M3_I2SName;
+//     CC2640R2_STELLAR_M3_I2SCOUNT
+// } CC2640R2_STELLAR_M3_I2SName;
 
 /*!
  *  @def    CC2640R2_STELLAR_M3_NVSName

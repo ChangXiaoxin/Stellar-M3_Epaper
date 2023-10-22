@@ -612,33 +612,33 @@ const I2C_Config I2C_config[CC2640R2_STELLAR_M3_I2CCOUNT] = {
 
 const uint_least8_t I2C_count = CC2640R2_STELLAR_M3_I2CCOUNT;
 
-/*
- *  =============================== I2S ===============================
-*/
-#include <ti/drivers/I2S.h>
-#include <ti/drivers/i2s/I2SCC26XX.h>
+// /*
+//  *  =============================== I2S ===============================
+// */
+// #include <ti/drivers/I2S.h>
+// #include <ti/drivers/i2s/I2SCC26XX.h>
 
-I2SCC26XX_Object i2sCC26XXObjects[CC2640R2_STELLAR_M3_I2SCOUNT];
+// I2SCC26XX_Object i2sCC26XXObjects[CC2640R2_STELLAR_M3_I2SCOUNT];
 
-const I2SCC26XX_HWAttrs i2sCC26XXHWAttrs[CC2640R2_STELLAR_M3_I2SCOUNT] = {
-    {
-        .pinSD1      =  CC2640R2_STELLAR_M3_I2S_ADI,
-        .pinSD0      =  CC2640R2_STELLAR_M3_I2S_ADO,
-        .pinSCK      =  CC2640R2_STELLAR_M3_I2S_BCLK,
-        .pinMCLK     =  CC2640R2_STELLAR_M3_I2S_MCLK,
-        .pinWS       =  CC2640R2_STELLAR_M3_I2S_WCLK,
-        .intPriority = ~0,
-    }
-};
+// const I2SCC26XX_HWAttrs i2sCC26XXHWAttrs[CC2640R2_STELLAR_M3_I2SCOUNT] = {
+//     {
+//         .pinSD1      =  CC2640R2_STELLAR_M3_I2S_ADI,
+//         .pinSD0      =  CC2640R2_STELLAR_M3_I2S_ADO,
+//         .pinSCK      =  CC2640R2_STELLAR_M3_I2S_BCLK,
+//         .pinMCLK     =  CC2640R2_STELLAR_M3_I2S_MCLK,
+//         .pinWS       =  CC2640R2_STELLAR_M3_I2S_WCLK,
+//         .intPriority = ~0,
+//     }
+// };
 
-const I2S_Config I2S_config[CC2640R2_STELLAR_M3_I2SCOUNT] = {
-    {
-        .object      = &i2sCC26XXObjects[CC2640R2_STELLAR_M3_I2S0],
-        .hwAttrs     = &i2sCC26XXHWAttrs[CC2640R2_STELLAR_M3_I2S0]
-    },
-};
+// const I2S_Config I2S_config[CC2640R2_STELLAR_M3_I2SCOUNT] = {
+//     {
+//         .object      = &i2sCC26XXObjects[CC2640R2_STELLAR_M3_I2S0],
+//         .hwAttrs     = &i2sCC26XXHWAttrs[CC2640R2_STELLAR_M3_I2S0]
+//     },
+// };
 
-const uint_least8_t I2S_count = CC2640R2_STELLAR_M3_I2SCOUNT;
+// const uint_least8_t I2S_count = CC2640R2_STELLAR_M3_I2SCOUNT;
 
 /*
  *  =============================== NVS ===============================
@@ -762,7 +762,7 @@ const PIN_Config BoardGpioInitTable[] = {
 
     CC2640R2_STELLAR_M3_PIN_RLED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,       /* LED initially off */
     CC2640R2_STELLAR_M3_PIN_GLED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,       /* LED initially off */
-    CC2640R2_STELLAR_M3_PIN_BTN1 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS,          /* Button is active low */
+    // CC2640R2_STELLAR_M3_PIN_BTN1 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS,          /* Button is active low */
     CC2640R2_STELLAR_M3_PIN_BTN2 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS,          /* Button is active low */
     CC2640R2_STELLAR_M3_SPI_FLASH_CS | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL | PIN_DRVSTR_MIN,  /* External flash chip select */
     CC2640R2_STELLAR_M3_UART_RX | PIN_INPUT_EN | PIN_PULLDOWN,                                              /* UART RX via debugger back channel */

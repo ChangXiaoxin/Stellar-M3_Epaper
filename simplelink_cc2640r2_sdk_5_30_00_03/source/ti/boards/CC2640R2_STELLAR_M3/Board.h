@@ -39,6 +39,13 @@
 extern "C" {
 #endif
 
+#include <ti/drivers/ADC.h>
+#include <ti/drivers/ADCBuf.h>
+#include <ti/drivers/PWM.h>
+#include <ti/drivers/SPI.h>
+#include <ti/drivers/UART.h>
+#include <ti/drivers/Watchdog.h>
+
 #include <ti/drivers/Board.h>
 
 #define Board_initGeneral()     Board_init()  /* deprecated */
@@ -154,6 +161,38 @@ extern "C" {
 #define Board_UART0             CC2640R2_STELLAR_M3_UART0
 
 #define Board_WATCHDOG0         CC2640R2_STELLAR_M3_WATCHDOG0
+
+/*
+ * These macros are provided for backwards compatibility.
+ * Please use the <Driver>_init functions directly rather
+ * than Board_init<Driver>.
+ */
+#define Board_initADC()         ADC_init()
+#define Board_initADCBuf()      ADCBuf_init()
+#define Board_initGPIO()        GPIO_init()
+#define Board_initPWM()         PWM_init()
+#define Board_initSPI()         SPI_init()
+#define Board_initUART()        UART_init()
+#define Board_initWatchdog()    Watchdog_init()
+
+/*
+ * These macros are provided for backwards compatibility.
+ * Please use the 'Board_PIN_xxx' macros to differentiate
+ * them from the 'Board_GPIO_xxx' macros.
+ */
+#define Board_BUTTON0           Board_PIN_BUTTON0
+#define Board_BUTTON1           Board_PIN_BUTTON1
+#define Board_BTN1              Board_PIN_BTN1
+#define Board_BTN2              Board_PIN_BTN2
+#define Board_LED_ON            Board_GPIO_LED_ON
+#define Board_LED_OFF           Board_GPIO_LED_OFF
+#define Board_LED0              Board_PIN_LED0
+#define Board_LED1              Board_PIN_LED1
+#define Board_LED2              Board_PIN_LED2
+#define Board_RLED              Board_PIN_RLED
+#define Board_GLED              Board_PIN_GLED
+#define Board_ADCBUFCHANNEL0    Board_ADCBUF0CHANNEL0
+#define Board_ADCBUFCHANNEL1    Board_ADCBUF0CHANNEL1
 
 #ifdef __cplusplus
 }
