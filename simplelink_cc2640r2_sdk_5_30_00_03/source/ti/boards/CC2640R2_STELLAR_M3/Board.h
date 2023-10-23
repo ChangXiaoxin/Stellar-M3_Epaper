@@ -113,8 +113,8 @@ extern "C" {
 #define Board_GPTIMER3A         CC2640R2_STELLAR_M3_GPTIMER3A
 #define Board_GPTIMER3B         CC2640R2_STELLAR_M3_GPTIMER3B
 
-#define Board_I2C0              CC2640R2_STELLAR_M3_I2C0
-#define Board_I2C_TMP           Board_I2C0
+// #define Board_I2C0              CC2640R2_STELLAR_M3_I2C0
+// #define Board_I2C_TMP           Board_I2C0
 
 // #define Board_I2S0              CC2640R2_STELLAR_M3_I2S0
 // #define Board_I2S_ADO           CC2640R2_STELLAR_M3_I2S_ADO
@@ -139,16 +139,30 @@ extern "C" {
 #define Board_PWM0              CC2640R2_STELLAR_M3_PWM0
 #define Board_PWM1              CC2640R2_STELLAR_M3_PWM1
 #define Board_PWM2              CC2640R2_STELLAR_M3_PWM2
-#define Board_PWM3              CC2640R2_STELLAR_M3_PWM3
-#define Board_PWM4              CC2640R2_STELLAR_M3_PWM4
-#define Board_PWM5              CC2640R2_STELLAR_M3_PWM5
-#define Board_PWM6              CC2640R2_STELLAR_M3_PWM6
-#define Board_PWM7              CC2640R2_STELLAR_M3_PWM7
+// #define Board_PWM3              CC2640R2_STELLAR_M3_PWM3
+// #define Board_PWM4              CC2640R2_STELLAR_M3_PWM4
+// #define Board_PWM5              CC2640R2_STELLAR_M3_PWM5
+// #define Board_PWM6              CC2640R2_STELLAR_M3_PWM6
+// #define Board_PWM7              CC2640R2_STELLAR_M3_PWM7
 
 #define Board_SD0               CC2640R2_STELLAR_M3_SDSPI0
 
+/* E-Ink (DEPG0213RHS75AF1CP|SSD1675B) */
+#define Board_E_INK_DC          CC2640R2_STELLAR_M3_E_INK_DC       /* Data/Command control */
+#define Board_E_INK_CS          CC2640R2_STELLAR_M3_E_INK_CS       /* SPI chip select */
+#define Board_E_INK_CK          CC2640R2_STELLAR_M3_E_INK_CK       /* SPI clock */
+#define Board_E_INK_SDA         CC2640R2_STELLAR_M3_E_INK_SDA      /* SPI data */
+#define Board_E_INK_RST         CC2640R2_STELLAR_M3_E_INK_RST      /* Reset signal */
+#define Board_E_INK_BUSY        CC2640R2_STELLAR_M3_E_INK_BUSY     /* Busy state output */
+#define Board_E_INK_POWER       CC2640R2_STELLAR_M3_E_INK_POWER    /* E-Ink power control */
+#define Board_E_INK_CS_ON       CC2640R2_STELLAR_M3_E_INK_CS_ON            1
+#define Board_E_INK_CS_OFF      CC2640R2_STELLAR_M3_E_INK_CS_OFF           0
+#define Board_E_INK_POWER_ON    CC2640R2_STELLAR_M3_E_INK_POWER_ON         1
+#define Board_E_INK_POWER_OFF   CC2640R2_STELLAR_M3_E_INK_POWER_OFF        0
+
+#define Board_E_INK_SPI         CC2640R2_STELLAR_M3_E_INK_SPI
 #define Board_SPI0              CC2640R2_STELLAR_M3_SPI0
-#define Board_SPI1              CC2640R2_STELLAR_M3_SPI1
+// #define Board_SPI1              CC2640R2_STELLAR_M3_SPI1
 #define Board_SPI_FLASH_CS      CC2640R2_STELLAR_M3_SPI_FLASH_CS
 #define Board_FLASH_CS_ON       0
 #define Board_FLASH_CS_OFF      1

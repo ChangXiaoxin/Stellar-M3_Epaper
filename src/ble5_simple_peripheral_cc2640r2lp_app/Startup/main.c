@@ -74,7 +74,8 @@ icall_userCfg_t user0Cfg = BLE_USER_CFG;
 #endif // USE_DEFAULT_USER_CFG
 
 #include <ti/display/Display.h>
-
+#include "../Application/epd2in13.h"
+#include "../Application/EPD_Test.h"
 /*******************************************************************************
  * MACROS
  */

@@ -713,69 +713,78 @@ static void SimplePeripheral_init(void)
  *
  * @param   a0, a1 - not used.
  */
+
+// TODO delete
+extern void epd_hw_init();
+extern int EPD_test(void);
+
 static void SimplePeripheral_taskFxn(UArg a0, UArg a1)
 {
   // Initialize application
   SimplePeripheral_init();
 
+  // TODO delete
+  epd_hw_init();
+  EPD_test();
+
   // Application main loop
   for (;;)
   {
-    uint32_t events;
-
-    // Waits for an event to be posted associated with the calling thread.
-    // Note that an event associated with a thread is posted when a
-    // message is queued to the message receive queue of the thread
-    events = Event_pend(syncEvent, Event_Id_NONE, SP_ALL_EVENTS,
-                        ICALL_TIMEOUT_FOREVER);
-
-    if (events)
-    {
-      ICall_EntityID dest;
-      ICall_ServiceEnum src;
-      ICall_HciExtEvt *pMsg = NULL;
-
-      // Fetch any available messages that might have been sent from the stack
-      if (ICall_fetchServiceMsg(&src, &dest,
-                                (void **)&pMsg) == ICALL_ERRNO_SUCCESS)
-      {
-        uint8 safeToDealloc = TRUE;
-
-        if ((src == ICALL_SERVICE_CLASS_BLE) && (dest == selfEntity))
-        {
-          ICall_Stack_Event *pEvt = (ICall_Stack_Event *)pMsg;
-
-          // Check for BLE stack events first
-          if (pEvt->signature != 0xffff)
-          {
-            // Process inter-task message
-            safeToDealloc = SimplePeripheral_processStackMsg((ICall_Hdr *)pMsg);
-          }
-        }
-
-        if (pMsg && safeToDealloc)
-        {
-          ICall_freeMsg(pMsg);
-        }
-      }
-
-      // If RTOS queue is not empty, process app message.
-      if (events & SP_QUEUE_EVT)
-      {
-        while (!Queue_empty(appMsgQueueHandle))
-        {
-          spEvt_t *pMsg = (spEvt_t *)Util_dequeueMsg(appMsgQueueHandle);
-          if (pMsg)
-          {
-            // Process message.
-            SimplePeripheral_processAppMsg(pMsg);
-
-            // Free the space from the message.
-            ICall_free(pMsg);
-          }
-        }
-      }
-    }
+//    uint32_t events;
+//
+//    // Waits for an event to be posted associated with the calling thread.
+//    // Note that an event associated with a thread is posted when a
+//    // message is queued to the message receive queue of the thread
+//    events = Event_pend(syncEvent, Event_Id_NONE, SP_ALL_EVENTS,
+//                        ICALL_TIMEOUT_FOREVER);
+//
+//    if (events)
+//    {
+//      ICall_EntityID dest;
+//      ICall_ServiceEnum src;
+//      ICall_HciExtEvt *pMsg = NULL;
+//
+//      // Fetch any available messages that might have been sent from the stack
+//      if (ICall_fetchServiceMsg(&src, &dest,
+//                                (void **)&pMsg) == ICALL_ERRNO_SUCCESS)
+//      {
+//        uint8 safeToDealloc = TRUE;
+//
+//        if ((src == ICALL_SERVICE_CLASS_BLE) && (dest == selfEntity))
+//        {
+//          ICall_Stack_Event *pEvt = (ICall_Stack_Event *)pMsg;
+//
+//          // Check for BLE stack events first
+//          if (pEvt->signature != 0xffff)
+//          {
+//            // Process inter-task message
+//            safeToDealloc = SimplePeripheral_processStackMsg((ICall_Hdr *)pMsg);
+//          }
+//        }
+//
+//        if (pMsg && safeToDealloc)
+//        {
+//          ICall_freeMsg(pMsg);
+//        }
+//      }
+//
+//      // If RTOS queue is not empty, process app message.
+//      if (events & SP_QUEUE_EVT)
+//      {
+//        while (!Queue_empty(appMsgQueueHandle))
+//        {
+//          spEvt_t *pMsg = (spEvt_t *)Util_dequeueMsg(appMsgQueueHandle);
+//          if (pMsg)
+//          {
+//            // Process message.
+//            SimplePeripheral_processAppMsg(pMsg);
+//
+//            // Free the space from the message.
+//            ICall_free(pMsg);
+//          }
+//        }
+//      }
+//    }
   }
 }
 

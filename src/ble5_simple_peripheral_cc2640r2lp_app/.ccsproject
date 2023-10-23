@@ -13,4 +13,6 @@
 	<templateProperties value="id=ble5_simple_peripheral_cc2640r2lp_app.projectspec.ble5_simple_peripheral_cc2640r2lp_app,type=rtsc,products=,xdcToolsVersion=3.51.03.28_core,target=ti.targets.arm.elf.M3,platform=ti.platforms.simplelink:CC2640R2F,buildProfile=release,isHybrid=true,configuroOptions=--compileOptions ${COMPILER_FLAGS} --xdcpath ${SRC_BLE_DIR}/../../../source;${SRC_BLE_DIR}/../../../kernel/tirtos/packages;${SRC_BLE_DIR}"/>
 	<origin value="E:\ti\simplelink_cc2640r2_sdk_5_30_00_03\examples\rtos\CC2640R2_LAUNCHXL\ble5stack\simple_peripheral\tirtos\ccs\ble5_simple_peripheral_cc2640r2lp_app.projectspec"/>
 	<filesToOpen value=""/>
+	<connection value="common/targetdb/connections/uart_connection.xml"/>
+	<isTargetManual value="false"/>
 </projectOptions>
